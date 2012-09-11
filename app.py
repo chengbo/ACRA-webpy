@@ -17,12 +17,21 @@ class index:
 
 class reports:
     def GET(self):
-        reports = db.get_reports() 
-        return render.reports(reports)
+        page_size = 10
+        reports_count = db.get_reports_count()
+        pages_count = reports_count / page_size
+        if pages_count % page_size > 0:
+            pages_count += 1
+        current_page = int(web.input(page=1).page)
+        if current_page > pages_count:
+            web.seeother('/reports')
+        offset = (current_page - 1) * page_size
+        reports = db.get_reports(page_size, offset)
+        return render.reports(reports, pages_count, current_page)
     def POST(self):
         i = web.input()
         db.new_report(i)
-        web.seeother('/')
+        web.seeother('/reports')
 
 class report:
     def GET(self, guid):

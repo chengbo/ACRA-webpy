@@ -1,4 +1,4 @@
-$def with (reports)
+$def with (reports, pages_count, current_page)
 
 <h1>Android crash reports</h1>
 
@@ -23,3 +23,11 @@ $for report in reports
         <td>$report.PRODUCT</td>
     </tr>
 </table>
+
+<p>
+$for i in range(1, pages_count + 1):
+    $if i == current_page:
+        $i
+    $else:
+        <a href="?page=$i">$i</a>
+</p>
