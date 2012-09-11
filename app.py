@@ -35,7 +35,9 @@ class reports:
 
 class report:
     def GET(self, guid):
-        return 'the guid is ' + guid
+        report = db.get_report(guid)
+        if report == None: return web.notfound()
+        return render.report(report)
 
 if __name__ == "__main__":
   app = web.application(urls, globals())

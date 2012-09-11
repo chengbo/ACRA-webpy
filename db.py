@@ -2,6 +2,12 @@ import web
 
 db = web.database(dbn='mysql', db = 'testdb', user = 'testuser', pw = '12345')
 
+def get_report(guid):
+    try:
+        return db.select('android_crash_reports', where= 'REPORT_ID = $guid', vars = locals())[0]
+    except IndexError:
+        return None
+
 def get_reports(limit, offset):
     return db.select('android_crash_reports', offset = offset, limit = limit)
 
