@@ -13,12 +13,12 @@ render = web.template.render('templates', base='base')
 
 class index:
     def GET(self):
-        reports = db.get_reports()
-        return render.index(reports)
+        return render.index()
 
 class reports:
     def GET(self):
-        return 'test'
+        reports = db.get_reports() 
+        return render.reports(reports)
     def POST(self):
         i = web.input()
         db.new_report(i)

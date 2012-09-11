@@ -1,25 +1,5 @@
-$def with (reports)
+$def with ()
 
 <h1>Android crash reports</h1>
 
-<table cellspace="0" border="1">
-    <tr>
-    <th>id</th>
-    <th>app_version</th>
-    <th>app_version_name</th>
-    <th>android_version</th>
-    <th>phone_model</th>
-    <th>phone_brand</th>
-    <th>product</th>
-    </tr>
-$for report in reports
-    <tr>
-        <td><a href="reports/$report.REPORT_ID">view</a></td>
-        <td>$report.APP_VERSION</td>
-        <td>$report.APP_VERSION_NAME</td>
-        <td>$report.ANDROID_VERSION</td>
-        <td>$report.PHONE_MODEL</td>
-        <td>$report.PHONE_BRAND</td>
-        <td>$report.PRODUCT</td>
-    </tr>
-</table>
+<p><a href="reports">Show reports</a></p>
