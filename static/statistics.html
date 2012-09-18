@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <script type="text/javascript" src="jquery-1.8.1.min.js"></script>
+        <script type="text/javascript" src="raphael-min.js"></script>
+        <script type="text/javascript" src="g.raphael-min.js"></script>
+        <script type="text/javascript" src="g.pie-min.js"></script>
+
+        <script type="text/javascript">
+            var getCounts = function(obj) {
+                var counts = [];
+                for (i = 0; i < obj.length; i++) {
+                    counts.push(obj[i].count);
+                }
+                return counts;
+            };
+            var getNames = function(obj) {
+                var names = [];
+                for (i = 0; i < obj.length; i++) {
+                    names.push(obj[i].name);
+                }
+                return names;
+            };
+            window.onload = function() {
+                $.getJSON("/statistics", function(data) {
+                    var c = getCounts(data);
+                    var n = getNames(data);
+                    var r = Raphael("chart_div"),
+                        pie = r.piechart(320, 240, 100, c, { legend: n });
+                });
+            };
+        </script>
+    </head>
+    <body>
+        <div id="chart_div"></div>
+    </body>
+<html>

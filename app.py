@@ -3,11 +3,13 @@
 import math
 import web
 import db
+import json
 
 urls = (
     '/', 'index',
     '/reports', 'reports',
-    '/reports/([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12})', 'report'
+    '/reports/([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12})', 'report',
+    '/statistics', 'statistics'
 )
 
 render = web.template.render('templates', base='base')
@@ -37,6 +39,11 @@ class report:
         report = db.get_report(guid)
         if report == None: return web.notfound()
         return render.report(report)
+
+class statistics:
+    def GET(self):
+        dd = db.get_field_count()
+        return json.dumps(dd, cls=db.VersionEncoder)
 
 if __name__ == "__main__":
   app = web.application(urls, globals())
