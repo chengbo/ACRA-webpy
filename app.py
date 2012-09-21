@@ -22,6 +22,8 @@ class reports:
     def GET(self):
         page_size = 10
         reports_count = db.get_reports_count()
+        if reports_count == 0:
+            return "No reports yet"
         pages_count = int(math.ceil(reports_count / (page_size * 1.0)))
         current_page = int(web.input(page=1).page)
         if current_page > pages_count:
