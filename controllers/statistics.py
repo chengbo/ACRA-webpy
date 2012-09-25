@@ -1,8 +1,8 @@
 import web
-import db
 import json
+from models import fieldcount
 
 class Statistics:
     def GET(self):
-        dd = db.get_field_count()
-        return json.dumps(dd, cls = db.VersionEncoder)
+        fc = fieldcount.get_field_count()
+        return json.dumps(fc, cls = fieldcount.FieldCountEncoder)
